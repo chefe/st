@@ -1,5 +1,5 @@
 pkgname=st
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X.'
 arch=('i686' 'x86_64')
@@ -8,27 +8,23 @@ depends=('libxft' 'libxext' 'xorg-fonts-misc')
 makedepends=('ncurses')
 url="http://st.suckless.org"
 
-alphaver=0.8.1
 hidecursorver=0.8.1
-scrollbackver=0.8.1
-scrollbackmousever=0.8
+scrollbackver=0.8.2
+scrollbackmousever=0.8.2
 
 source=(http://dl.suckless.org/st/st-$pkgver.tar.gz
-        https://st.suckless.org/patches/alpha/st-alpha-$alphaver.diff
         https://st.suckless.org/patches/scrollback/st-scrollback-$scrollbackver.diff
         https://st.suckless.org/patches/scrollback/st-scrollback-mouse-$scrollbackmousever.diff
         https://st.suckless.org/patches/hidecursor/st-hidecursor-$hidecursorver.diff)
 
-sha256sums=('c4fb0fe2b8d2d3bd5e72763e80a8ae05b7d44dbac8f8e3bb18ef0161c7266926'
-            '7bf61cb8a505891574f3ad0a5420334d3e965b9f7d0067df3819eeef72ce1358'
-            'ddc26e8e6dcce1a51f8aa8ed33072afcf4ff2d20f64ea24d96409479e86e8750'
-            '3fb38940cc3bad3f9cd1e2a0796ebd0e48950a07860ecf8523a5afd0cd1b5a44'
+sha256sums=('aeb74e10aa11ed364e1bcc635a81a523119093e63befd2f231f8b0705b15bf35'
+            '9c5aedce2ff191437bdb78aa70894c3c91a47e1be48465286f42d046677fd166'
+            '6103a650f62b5d07672eee9e01e3f4062525083da6ba063e139ca7d9fd58a1ba'
             'bf3fe4e855f67fc9ae69b7328399ce06567f6aae3c9fb7fc8e7ec26c89e41dfd')
 
 prepare() {
   cd $srcdir/$pkgname-$pkgver
 
-  patch -i ../st-alpha-$alphaver.diff
   patch -i ../st-hidecursor-$hidecursorver.diff
   patch -i ../st-scrollback-$scrollbackver.diff
   patch -i ../st-scrollback-mouse-$scrollbackmousever.diff
