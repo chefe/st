@@ -4,12 +4,19 @@ a custom build of the terminal [st](http://st.suckless.org/) for [archlinux](htt
 ## Installed patches
 * [scrollback](https://st.suckless.org/patches/scrollback/)
 * [hidecursor](https://st.suckless.org/patches/hidecursor/)
+* [spoiler](https://st.suckless.org/patches/spoiler/)
+* [dracula](https://st.suckless.org/patches/dracula/)
 
 ## Usage
 
 Build the package but do not install it.
 ```sh
 make
+```
+
+Start the compiled binary.
+```sh
+make start
 ```
 
 Build the package and install it.
