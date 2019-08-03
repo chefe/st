@@ -1,5 +1,5 @@
-# st (simple terminal)
-a custom build of the terminal [st](http://st.suckless.org/) for [archlinux](https://archlinux.org/)
+# st
+a custom build of the [st](http://st.suckless.org/) (the simple/suckless terminal) for [archlinux](https://archlinux.org/)
 
 ## Installed patches
 * [scrollback](https://st.suckless.org/patches/scrollback/)
