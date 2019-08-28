@@ -6,6 +6,7 @@ a custom build of the [st](http://st.suckless.org/) (the simple/suckless termina
 * [hidecursor](https://st.suckless.org/patches/hidecursor/)
 * [spoiler](https://st.suckless.org/patches/spoiler/)
 * [dracula](https://st.suckless.org/patches/dracula/)
+* [copyurl](https://st.suckless.org/patches/copyurl/)
 
 ## Usage
 
