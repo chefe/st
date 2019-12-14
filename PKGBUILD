@@ -34,12 +34,20 @@ sha256sums=('aeb74e10aa11ed364e1bcc635a81a523119093e63befd2f231f8b0705b15bf35'
 prepare() {
   cd $srcdir/$pkgname-$pkgver
 
-  # apply patches
+  echo "  -> Patch hidecursor ..."
   patch -i ../st-hidecursor-$hidecursorver.diff
+
+  echo "  -> Patch scrollback ..."
   patch -i ../st-scrollback-$scrollbackver.diff
   patch -i ../st-scrollback-mouse-$scrollbackmousever.diff
+
+  echo "  -> Patch spoiler ..."
   patch -i ../st-spoiler-$spoilerver.diff
+
+  echo "  -> Patch dracula ..."
   patch -i ../st-dracula-$draculaver.diff
+
+  echo "  -> Patch copyurl ..."
   patch -i ../st-copyurl-$copyurlver.diff
 
   # skip terminfo which conflicts with ncurses
