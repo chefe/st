@@ -1,6 +1,6 @@
 pkgname=st
-pkgver=0.8.2
-pkgrel=3
+pkgver=0.8.3
+pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X.'
 arch=('i686' 'x86_64')
 license=('MIT')
@@ -9,30 +9,36 @@ makedepends=('ncurses')
 url="http://st.suckless.org"
 
 hidecursorver=0.8.1
-scrollbackver=0.8.2
-scrollbackmousever=0.8.2
+scrollbackver=20200419-72e3f6c
+scrollbackmousever=20191024-a2c479c
 spoilerver=20180309-c5ba9c0
 draculaver=0.8.2
-copyurlver=20190202-3be4cf1
+ligaturesver=scrollback-20200430-0.8.3
+invertver=0.8.2
 
 source=(http://dl.suckless.org/st/st-$pkgver.tar.gz
         https://st.suckless.org/patches/spoiler/st-spoiler-$spoilerver.diff
         https://st.suckless.org/patches/dracula/st-dracula-$draculaver.diff
-        https://st.suckless.org/patches/copyurl/st-copyurl-$copyurlver.diff
+        https://st.suckless.org/patches/ligatures/$pkgver/st-ligatures-$ligaturesver.diff
+        https://st.suckless.org/patches/invert/st-invert-$invertver.diff
         https://st.suckless.org/patches/scrollback/st-scrollback-$scrollbackver.diff
         https://st.suckless.org/patches/scrollback/st-scrollback-mouse-$scrollbackmousever.diff
         https://st.suckless.org/patches/hidecursor/st-hidecursor-$hidecursorver.diff)
 
-sha256sums=('aeb74e10aa11ed364e1bcc635a81a523119093e63befd2f231f8b0705b15bf35'
+sha256sums=('939ae3da237e7c9489694853c205c7cbd5f2a2f0c17fe41a07477f1df8e28552'
             'd947586a2059adbbcbd7c35733450530038aa5cf97c1e3e586728606ba6f8f4b'
             '5eb8e0375fda9373c3b16cabe2879027300e73e48dbd9782e54ffd859e84fb7e'
-            '7f63ccbf0452fea52642496568a3ceceeb2ff433d8fed47ba8a05f669fa14dcc'
-            '9c5aedce2ff191437bdb78aa70894c3c91a47e1be48465286f42d046677fd166'
-            '6103a650f62b5d07672eee9e01e3f4062525083da6ba063e139ca7d9fd58a1ba'
+            'd8adb94a880e29c615bea67acda27c4f4f2e1e7eb90909f6d19976a6181fef30'
+            '2107473b74fcea5bac93135c51b9cfe57060fcba9abd87dd303ad03cda1a6a65'
+            '1e41fe17a5ef5a8194eea07422b49d815e2c2bb4d58d84771f793be423005310'
+            '319458d980195d18fa0f81a6898d58f8d046c5ff982ab872d741f54bb60e267d'
             'bf3fe4e855f67fc9ae69b7328399ce06567f6aae3c9fb7fc8e7ec26c89e41dfd')
 
 prepare() {
   cd $srcdir/$pkgname-$pkgver
+
+  echo "  -> Fix issues with hidecursor ..."
+  sed -i s/forceselmod/forcemousemod/ ../st-hidecursor-$hidecursorver.diff
 
   echo "  -> Patch hidecursor ..."
   patch -i ../st-hidecursor-$hidecursorver.diff
@@ -41,14 +47,25 @@ prepare() {
   patch -i ../st-scrollback-$scrollbackver.diff
   patch -i ../st-scrollback-mouse-$scrollbackmousever.diff
 
+  echo "  -> Patch ligatures ..."
+  patch -i ../st-ligatures-$ligaturesver.diff
+
   echo "  -> Patch spoiler ..."
   patch -i ../st-spoiler-$spoilerver.diff
 
   echo "  -> Patch dracula ..."
   patch -i ../st-dracula-$draculaver.diff
 
-  echo "  -> Patch copyurl ..."
-  patch -i ../st-copyurl-$copyurlver.diff
+  echo "  -> Fix issue with invert ..."
+  sed -i '30d' ../st-invert-$invertver.diff
+  sed -i "32i\ static\ void\ ttysend(const\ Arg\ \*);" ../st-invert-$invertver.diff
+  sed -i "22i\ \t{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} }," ../st-invert-$invertver.diff
+  sed -i "23i\ \t{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} }," ../st-invert-$invertver.diff
+  sed -i "26d" ../st-invert-$invertver.diff
+  sed -i "25d" ../st-invert-$invertver.diff
+
+  echo "-> Patch invert ..."
+  patch -i ../st-invert-$invertver.diff
 
   # skip terminfo which conflicts with ncurses
   sed -i '/tic /d' Makefile
