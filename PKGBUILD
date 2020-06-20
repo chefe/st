@@ -1,5 +1,5 @@
 pkgname=st
-pkgver=0.8.3
+pkgver=0.8.4
 pkgrel=1
 pkgdesc='A simple virtual terminal emulator for X.'
 arch=('i686' 'x86_64')
@@ -8,31 +8,32 @@ depends=('libxft' 'libxext' 'xorg-fonts-misc')
 makedepends=('ncurses')
 url="http://st.suckless.org"
 
-hidecursorver=0.8.1
+hidecursorver=0.8.3
 scrollbackver=20200419-72e3f6c
 scrollbackmousever=20191024-a2c479c
 spoilerver=20180309-c5ba9c0
 draculaver=0.8.2
-ligaturesver=scrollback-20200430-0.8.3
+ligaturesbasever=0.8.3
+ligaturesver="scrollback-20200430-$ligaturesbasever"
 invertver=0.8.2
 
 source=(http://dl.suckless.org/st/st-$pkgver.tar.gz
         https://st.suckless.org/patches/spoiler/st-spoiler-$spoilerver.diff
         https://st.suckless.org/patches/dracula/st-dracula-$draculaver.diff
-        https://st.suckless.org/patches/ligatures/$pkgver/st-ligatures-$ligaturesver.diff
+        https://st.suckless.org/patches/ligatures/$ligaturesbasever/st-ligatures-$ligaturesver.diff
         https://st.suckless.org/patches/invert/st-invert-$invertver.diff
         https://st.suckless.org/patches/scrollback/st-scrollback-$scrollbackver.diff
         https://st.suckless.org/patches/scrollback/st-scrollback-mouse-$scrollbackmousever.diff
         https://st.suckless.org/patches/hidecursor/st-hidecursor-$hidecursorver.diff)
 
-sha256sums=('939ae3da237e7c9489694853c205c7cbd5f2a2f0c17fe41a07477f1df8e28552'
+sha256sums=('d42d3ceceb4d6a65e32e90a5336e3d446db612c3fbd9ebc1780bc6c9a03346a6'
             'd947586a2059adbbcbd7c35733450530038aa5cf97c1e3e586728606ba6f8f4b'
             '5eb8e0375fda9373c3b16cabe2879027300e73e48dbd9782e54ffd859e84fb7e'
             'd8adb94a880e29c615bea67acda27c4f4f2e1e7eb90909f6d19976a6181fef30'
             '2107473b74fcea5bac93135c51b9cfe57060fcba9abd87dd303ad03cda1a6a65'
             '1e41fe17a5ef5a8194eea07422b49d815e2c2bb4d58d84771f793be423005310'
             '319458d980195d18fa0f81a6898d58f8d046c5ff982ab872d741f54bb60e267d'
-            'bf3fe4e855f67fc9ae69b7328399ce06567f6aae3c9fb7fc8e7ec26c89e41dfd')
+            '31bb2d8f2a297ec8854d990cc923f813604e3cbc3265432e0078b73b2e5614dd')
 
 prepare() {
   cd $srcdir/$pkgname-$pkgver
